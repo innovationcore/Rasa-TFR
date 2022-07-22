@@ -1,0 +1,23 @@
+version: "3.1"
+
+stories:
+
+- story: start
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - action: utter_help
+    - intent: start
+    - action: utter_success
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: end
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - action: utter_help
+    - intent: end
+    - action: utter_end_good
+    - intent: goodbye
+    - action: utter_goodbye

@@ -1,0 +1,98 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - start
+  - end
+  - dayoff
+  - help
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_help:
+  - text: "Try 'startcal', 'endcal', or 'dayoff'. If you want to speak with a staff member, try 'call'."
+
+  utter_success:
+    - text: "Good show! Your overall success rate is now [SUCCESS]!"
+    - text: "Perfect! Your overall success rate is now [SUCCESS]!"
+    - text: "Smashing! Your overall success rate is now [SUCCESS]!"
+    - text: "Bravo, {name}! Your overall success rate is now [SUCCESS]!"
+    - text: "Jolly good show! Your overall success rate is now [SUCCESS]!"
+    - text: "Superb! Your overall success rate is now [SUCCESS]!"
+    - text: "Great! Your overall success rate is now [SUCCESS]!"
+
+  utter_end_good:
+    - text: "Thanks! You are now running calorie free!"
+    - text: "Thanks for your response. You can do it!"
+    - text: "Thanks, {name}! Here we go! Make sure your kitchen is in lock down!"
+    - text: "Message received. Good luck!"
+    - text: "Great. Now lock those kitchen cabinets!"
+    - text: "Thanks.  You are now nibble free."
+    - text: "Message received. Now stay out of the kitchen. Doctor's orders!"
+    - text: "Thanks. Now go bolt the refrigerator door shut."
+    - text: "Got it. Now put your tummy to sleep until the morning!"
+    - text: "Muchas gracias. Now go put your feet up. You've earned it!"
+
+  utter_idle:
+    - text: "We haven't heard from you in a while. Remember to text STARTCAL when your calories start in the morning and ENDCAL when your calories finish at night! Let us know if you need help."
+
+  utter_call:
+    - text: "Thanks for telling us you need more help.  One of our staff members will call you ASAP to help you get back on track."
+      # Flag for contacting
+
+  utter_tip:
+    - text: "Remember the golden rule: Once you end calories today, you need to be calorie free until tomorrow!"
+    - text: "Develop a plan to help you stay calorie free overnight."
+    - text: "Hide snacks to curb late night nibbles."
+    - text: "If you struggle sticking with it, distract yourself with a hobby or a good book!"
+    - text: "Drink fizzy water to help with the cravings."
+    - text: "Alcohol is cheating!  Calorie free means alcohol free too."
+    - text: "Try drinking herbal tea for a tasty way to be calorie free."
+    - text: "Kiss your partner to help you stay calorie free.  It won't help you, but it will make them feel yummy!"
+    - text: "Enjoy black coffee or tea with no sugar and stay calorie free. Phew!"
+    - text: "Top tip: drink fizzy water from a wine glass if you are craving a glass of vino."
+    - text: "{name}, is it a bummer to go calorie free? Cheer yourself up by remembering the last time you laughed so hard you almost peed in your pants."
+    - text: "Try knitting to help you stay calorie free tonight. You may feel hungry but you'll get a scarf along the way!"
+    - text: "Need a distraction to help you stay calorie free tonight? Do some household chores after you put your calories to bed."
+    - text: "Your own mind is your greatest motivator. You CAN do this!"
+    - text: "Hey TRE Queen, need a distraction? Try singing your favorite song. Now who's having the time of her life?"
+    - text: "It's not just on game shows where it helps to phone a friend. Chatting with friends helps distract you AND relax at the end of the day."
+    - text: "Remember to text ENDCAL when you have your last calorie tonight!"
+
+  utter_end_early:
+    - text: "You ended your time-restricted eating [SHORT] too early. Your success rate is now [SUCCESS]. Try planning ahead for how you will end your TRE."
+    - text: "You ended your time-restricted eating too early! [NAME], your success rate is now [SUCCESS]. Have small snacks or meals ready so you can stay on time."
+    - text: "[NAME] you ended your time-restricted eating too early! Your success rate is now [SUCCESS]. If you need help, get a family member to help you end your fasting time!"
+    - text: "You ended your time-restricted eating too early. Your success rate is now [SUCCESS]. Try putting Post-Its on your fridge and cupboards to help you remember your target End Calories time!"
+
+  utter_end_late:
+    - text: "You ended your TRE too late. Your success rate is now [SUCCESS]. Try planning ahead for how you will end calories earlier.
+You slipped up and ended too late. Your success rate is now [SUCCESS]. Let's get back on track tomorrow!
+[NAME] you exceeded the target eating window! Your success rate is now [SUCCESS]. If you need help, get a family member to help you end your calories on time!
+You slipped up and consumed calories for too long. Your success rate is now [SUCCESS]. Let's get back on track tomorrow!
+"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
