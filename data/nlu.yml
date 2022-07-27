@@ -11,10 +11,10 @@ nlu:
     - good evening
     - moin
     - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
+    - lets go
+    - sup
+    - gm
+    - wyd
     - good afternoon
 
 - intent: goodbye
@@ -79,7 +79,7 @@ nlu:
     - unhappy
     - not good
     - not very good
-    - extremly sad
+    - extremely sad
     - so saad
     - so sad
 
@@ -115,6 +115,7 @@ nlu:
     - dayoff
     - day off
     - take a break
+    - i need a break
 
 - intent: help
   examples: |
@@ -124,3 +125,14 @@ nlu:
     - assist me
     - i need assistance
     - ?
+
+- intent: call
+  examples: |
+    - call
+    - staff
+    - talk
+
+- intent: nameself
+  examples: |
+    - Will
+    - Sam

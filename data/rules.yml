@@ -16,3 +16,8 @@ rules:
   steps:
   - intent: help
   - action: utter_help
+
+- rule: call anytime the user wants to call
+  steps:
+  - intent: call
+  - action: utter_call

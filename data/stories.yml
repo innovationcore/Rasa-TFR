@@ -1,23 +1,31 @@
 version: "3.1"
 
 stories:
-
-- story: start
+# Sample stories for start and end should check for time constraints
+- story: new user endcal
   steps:
     - intent: greet
     - action: utter_greet
+    - slot_was_set:
+      - isNewUser: true
+    - intent: nameself
+    - action: utter_greet
+    - slot_was_set:
+      - isNewUser: false
     - action: utter_help
-    - intent: start
-    - action: utter_success
+    - intent: end
+    - action: utter_acknowledge
     - intent: goodbye
     - action: utter_goodbye
 
-- story: end
+- story: old user endcal
   steps:
     - intent: greet
     - action: utter_greet
+    - slot_was_set:
+      - isNewUser: false
     - action: utter_help
     - intent: end
-    - action: utter_end_good
+    - action: utter_acknowledge
     - intent: goodbye
     - action: utter_goodbye
