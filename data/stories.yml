@@ -1,31 +1,77 @@
 version: "3.1"
-
+#MODULARIZE THESE STORIES
 stories:
-# Sample stories for start and end should check for time constraints
-- story: new user endcal
+- story: new user endcal success
   steps:
-    - intent: greet
-    - action: utter_greet
-    - slot_was_set:
-      - isNewUser: true
-    - intent: nameself
-    - action: utter_greet
-    - slot_was_set:
-      - isNewUser: false
-    - action: utter_help
-    - intent: end
-    - action: utter_acknowledge
-    - intent: goodbye
-    - action: utter_goodbye
+  - intent: greet
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: true
+  - intent: nameself
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: false
+  - action: utter_help
+  - intent: end
+  - action: utter_acknowledge
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: old user endcal
+- story: old user endcal success
   steps:
-    - intent: greet
-    - action: utter_greet
-    - slot_was_set:
-      - isNewUser: false
-    - action: utter_help
-    - intent: end
-    - action: utter_acknowledge
-    - intent: goodbye
-    - action: utter_goodbye
+  - intent: greet
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: false
+  - intent: end
+  - action: utter_acknowledge
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: new user startcal success
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: true
+  - intent: nameself
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: false
+  - action: utter_help
+  - intent: start
+  - action: utter_success
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: old user startcal success
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - slot_was_set:
+    - isNewUser: false
+  - intent: start
+  - action: utter_success
+  - intent: goodbye
+  - action: utter_goodbye
+
+# Consider separating new/old user and happy/unhappy reply paths into their own stories.
+# new user startcal success
+# old user startcal success
+# new startcal tooearly
+# old user startcal tooearly
+# new toolate
+# old toolate
+# new endcal toolate
+# old user endcal toolate
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: nameself
+  - slot_was_set:
+    - isNewUser: false
+  - action: utter_greet
+  - intent: goodbye
+  - action: utter_goodbye
+  - intent: mood_great

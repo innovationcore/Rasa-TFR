@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,6 @@ nlu:
     - gm
     - wyd
     - good afternoon
-
 - intent: goodbye
   examples: |
     - cu
@@ -29,7 +27,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -38,7 +35,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -48,7 +44,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -65,7 +60,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -82,16 +76,15 @@ nlu:
     - extremely sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
 - intent: start
   examples: |
+    - start
     - startcal
     - startcal 10
     - startcal 10 o'clock
@@ -99,9 +92,9 @@ nlu:
     - startcal 10am
     - startcal 10:00
     - startcal 10:00 AM
-
 - intent: end
   examples: |
+    - end
     - endcal
     - endcal 8
     - endcal 8 o'clock
@@ -109,14 +102,12 @@ nlu:
     - endcal 8pm
     - endcal 8:00
     - endcal 8:00 PM
-
 - intent: dayoff
   examples: |
     - dayoff
     - day off
     - take a break
     - i need a break
-
 - intent: help
   examples: |
     - help
@@ -125,14 +116,16 @@ nlu:
     - assist me
     - i need assistance
     - ?
-
 - intent: call
   examples: |
     - call
     - staff
     - talk
-
 - intent: nameself
   examples: |
     - Will
     - Sam
+    - Aaron
+    - Travis
+    - Jack
+    - will
