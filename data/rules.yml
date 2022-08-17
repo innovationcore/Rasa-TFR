@@ -1,18 +1,15 @@
-version: "3.1"
-
 rules:
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: startcal
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: start
+  - action: action_timeset
+  - action: action_completefast
+  - action: action_listen
 
-- rule: help anytime the user needs help
+- rule: endcal
   steps:
-  - intent: help
-  - action: utter_help
-
-- rule: call anytime the user wants to call
-  steps:
-  - intent: call
-  - action: utter_call
+  - intent: end
+  - action: action_timeset
+  - action: utter_acknowledge
+  - action: action_listen

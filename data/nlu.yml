@@ -1,5 +1,8 @@
 version: "3.1"
 nlu:
+- regex: time
+  examples: |
+    - \d{1,2}
 - intent: greet
   examples: |
     - hey
@@ -86,22 +89,22 @@ nlu:
   examples: |
     - start
     - startcal
-    - startcal 10
-    - startcal 10 o'clock
-    - startcal 10a
-    - startcal 10am
-    - startcal 10:00
-    - startcal 10:00 AM
+    - startcal [10](time)
+    - startcal [10](time) o'clock
+    - startcal [10a](time)
+    - startcal [10am](time)
+    - startcal [10:00](time)
+    - startcal [10:00](time) AM
 - intent: end
   examples: |
     - end
     - endcal
-    - endcal 8
-    - endcal 8 o'clock
-    - endcal 8p
-    - endcal 8pm
-    - endcal 8:00
-    - endcal 8:00 PM
+    - endcal [8](time)
+    - endcal [8](time) o'clock
+    - endcal [8p](time)
+    - endcal [8pm](time)
+    - endcal [8:00](time)
+    - endcal [8:00](time) PM
 - intent: dayoff
   examples: |
     - dayoff
@@ -116,6 +119,7 @@ nlu:
     - assist me
     - i need assistance
     - ?
+    - what do i do
 - intent: call
   examples: |
     - call
@@ -123,9 +127,10 @@ nlu:
     - talk
 - intent: nameself
   examples: |
-    - Will
-    - Sam
-    - Aaron
-    - Travis
-    - Jack
-    - will
+    - [Will](name)
+    - [Sam](name)
+    - [Aaron](name)
+    - [Travis](name)
+    - [Jack](name)
+    - My name is [will](name)
+    - It is [will](name)

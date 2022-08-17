@@ -45,13 +45,13 @@ responses:
   - text: "Try STARTCAL, ENDCAL, or DAYOFF. If you want to speak with someone, try CALL."
 
   utter_success: # When STARTCAL is received between 9-11 hours after ENDCAL
-  - text: "Good show! Your overall success rate is now {kdr}!"
-  - text: "Perfect! Your overall success rate is now {kdr}!"
-  - text: "Smashing! Your overall success rate is now {kdr}!"
-  - text: "Bravo, {name}! Your overall success rate is now {kdr}!"
-  - text: "Jolly good show! Your overall success rate is now {kdr}!"
-  - text: "Superb! Your overall success rate is now {kdr}!"
-  - text: "Great! Your overall success rate is now {kdr}!"
+  - text: "Good show! Your overall success rate is now {kdr}%!"
+  - text: "Perfect! Your overall success rate is now {kdr}%!"
+  - text: "Smashing! Your overall success rate is now {kdr}%!"
+  - text: "Bravo, {name}! Your overall success rate is now {kdr}%!"
+  - text: "Jolly good show! Your overall success rate is now {kdr}%!"
+  - text: "Superb! Your overall success rate is now {kdr}%!"
+  - text: "Great! Your overall success rate is now {kdr}%!"
 
   utter_acknowledge: # Acknowledgement sent in response to ENDCAL
   - text: "Thanks! You are now running calorie free!"
@@ -91,16 +91,16 @@ responses:
   - text: "Remember to text ENDCAL when you have your last calorie tonight!"
 
   utter_tooearly: # When STARTCAL is received <9 hours after ENDCAL
-  - text: "You ended your time-restricted eating too early. Your success rate is now {kdr}. Try planning ahead for how you will end your TRE."
-  - text: "You ended your time-restricted eating too early! {name}, your success rate is now {kdr}. Have small snacks or meals ready so you can stay on time."
-  - text: "{name} you ended your time-restricted eating too early! Your success rate is now {kdr}. If you need help, get a family member to help you end your fasting time!"
-  - text: "You ended your time-restricted eating too early. Your success rate is now {kdr}. Try putting Post-Its on your fridge and cupboards to help you remember your target End Calories time!"
+  - text: "You ended your time-restricted eating too early. Your success rate is now {kdr}%. Try planning ahead for how you will end your TRE."
+  - text: "You ended your time-restricted eating too early! {name}, your success rate is now {kdr}%. Have small snacks or meals ready so you can stay on time."
+  - text: "{name} you ended your time-restricted eating too early! Your success rate is now {kdr}%. If you need help, get a family member to help you end your fasting time!"
+  - text: "You ended your time-restricted eating too early. Your success rate is now {kdr}%. Try putting Post-Its on your fridge and cupboards to help you remember your target End Calories time!"
 
   utter_toolate: # When STARTCAL is received >11 hours after ENDCAL
-  - text: "You ended your TRE too late. Your success rate is now {kdr}. Try planning ahead for how you will end calories earlier."
-  - text: "You slipped up and ended too late. Your success rate is now {kdr}. Let's get back on track tomorrow!"
-  - text: "{name} you exceeded the target eating window! Your success rate is now {kdr}. If you need help, get a family member to help you end your calories on time!"
-  - text: "You slipped up and consumed calories for too long. Your success rate is now {kdr}. Let's get back on track tomorrow!"
+  - text: "You ended your TRE too late. Your success rate is now {kdr}%. Try planning ahead for how you will end calories earlier."
+  - text: "You slipped up and ended too late. Your success rate is now {kdr}%. Let's get back on track tomorrow!"
+  - text: "{name} you exceeded the target eating window! Your success rate is now {kdr}%. If you need help, get a family member to help you end your calories on time!"
+  - text: "You slipped up and consumed calories for too long. Your success rate is now {kdr}%. Let's get back on track tomorrow!"
 
   utter_after8: # When ENDCAL is received after 8pm
   - text: "You ended your time-restricted eating too late. Try to keep your calories before 8pm."
@@ -110,14 +110,31 @@ responses:
   utter_weekly: # Sent once a week
   - text: "Thank you for continuing to send us your STARTCAL and ENDCAL each day. Keep up the great work!"
 
+  utter_dayoff:
+  - text: "Got it, no TRE today! Thank you for telling us. Please still let us know your STARTCAL and ENDCAL today."
+
+
 slots:
   name: # User name
     type: text
     mappings:
     - type: from_text
       intent: nameself
+  fasts_total:
+    type: float
+    initial_value: 0.0
+    max_value: 999.0
+    mappings:
+    - type: custom
+  fasts_success:
+    type: float
+    initial_value: 0.0
+    max_value: 999.0
+    mappings:
+    - type: custom
   kdr: # Success rate
     type: float
+    initial_value: 0.0
     max_value: 100.0
     mappings:
     - type: custom
@@ -128,6 +145,30 @@ slots:
     - type: from_intent
       value: false
       intent: nameself
+  time: #holds the current time as a decimal (e.g. 8:30 = 8.5)
+    type: float
+    max_value: 24.0
+    mappings:
+    - type: custom
+  usertime: #temporarily holds the last user argument from start or end commands
+    type: text
+    mappings:
+    - type: from_entity
+      entity: time
+  prevtime: #holds the last time value as a decimal
+    type: float
+    max_value: 24.0
+    initial_value: 20.0
+    mappings:
+    - type: custom
+
+entities:
+  - name
+  - time
+
+actions:
+  - action_timeset
+  - action_completefast
 
 session_config:
   session_expiration_time: 60
