@@ -30,7 +30,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, FollowupAction
-import datetime
+from datetime import datetime
 
 
 class ActionTimeSet(Action):
@@ -40,16 +40,20 @@ class ActionTimeSet(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict]:
         arg = tracker.get_slot('usertime')
         if arg is None:  # If there is no user specified argument, use system time.
-            arg = datetime.datetime.now().time()
+            arg = datetime.now().time()
         else:
-            trim = arg.lower().rfind('p')
-            if trim > -1:  # If the user specifies PM, convert to 24h format.
-                arg = str(int(arg[0])+12) + arg[1:trim]
-            arg = datetime.datetime.strptime(arg, "%H:%M")
-            if arg.hour >= 20:  # If the user ends after 8pm, scold them.
-                dispatcher.utter_message(template="utter_after8")
+            find = arg.lower().find('p')
+            if find > -1:  # If the user specifies PM, convert to 24h format. TODO make this work for 10, 11, 12 pm
+                arg = str(int(arg[0])+12) + arg[1:find]
+            find = arg.find(':')
+            if find == -1:  # If the user does not specify minutes, add them.
+                arg += ":00"
+            arg = datetime.strptime(arg, "%H:%M")
+            arg = arg.hour + arg.minute / 60.0
+            if arg >= 20.0:  # If the user ends after 8pm, scold them.
+                dispatcher.utter_message(response="utter_after8")
         return [SlotSet("prevtime", tracker.get_slot('time')),
-                SlotSet("time", arg.hour + arg.minute / 60.0)]
+                SlotSet("time", arg)]
 
 
 class ActionCompleteFast(Action):
@@ -64,12 +68,12 @@ class ActionCompleteFast(Action):
             endtime = 0.0
         delta = 24.0 - abs(endtime - tracker.get_slot('time'))
         if delta > 11.0:
-            message="utter_toolate"
+            message = "utter_toolate"
         elif delta < 9.0:
-            message="utter_tooearly"
+            message = "utter_tooearly"
         else:
             wins += 1
-            message="utter_success"
+            message = "utter_success"
         return [SlotSet("fasts_total", total),
                 SlotSet("fasts_success", wins),
                 SlotSet("kdr", round(wins / total * 100.0, 3)),
