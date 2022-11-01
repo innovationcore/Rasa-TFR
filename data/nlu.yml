@@ -95,6 +95,7 @@ nlu:
     - startcal [10am](time)
     - startcal [10:00](time)
     - startcal [10:00](time) AM
+    - I want to startcal at [8:00](time) AM
 - intent: end
   examples: |
     - end
@@ -105,12 +106,15 @@ nlu:
     - endcal [8pm](time)
     - endcal [8:00](time)
     - endcal [8:00](time) PM
+    - I want to endcal at [10:00](time) PM
 - intent: dayoff
   examples: |
     - dayoff
     - day off
     - take a break
     - i need a break
+    - I want to take a break
+    - I want to take a day off
 - intent: help
   examples: |
     - help

@@ -1,8 +1,9 @@
-from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet, FollowupAction
 from datetime import datetime
+from typing import Any, Dict, List, Text
+from dateutil.parser import *
+from rasa_sdk import Action, Tracker
+from rasa_sdk.events import FollowupAction, SlotSet
+from rasa_sdk.executor import CollectingDispatcher
 
 
 class ActionTimeSet(Action):
@@ -14,16 +15,10 @@ class ActionTimeSet(Action):
         if arg is None:  # If there is no user specified argument, use system time.
             arg = datetime.now().time()
         else:
-            find = arg.lower().find('p')
-            if find > -1:  # If the user specifies PM, convert to 24h format. TODO make this work for 10, 11, 12 pm
-                arg = str(int(arg[0])+12) + arg[1:find]
-            find = arg.find(':')
-            if find == -1:  # If the user does not specify minutes, add them.
-                arg += ":00"
-            arg = datetime.strptime(arg, "%H:%M")
-            arg = arg.hour + arg.minute / 60.0
-            if arg >= 20.0:  # If the user ends after 8pm, scold them.
-                dispatcher.utter_message(response="utter_after8")
+            arg = parse(arg)
+        arg = arg.hour + arg.minute / 60.0
+        if arg >= 20.0:  # If the user ends after 8pm, scold them.
+            dispatcher.utter_message(response="utter_after8")
         return [SlotSet("prevtime", tracker.get_slot('time')),
                 SlotSet("time", arg)]
 
@@ -50,4 +45,3 @@ class ActionCompleteFast(Action):
                 SlotSet("fasts_success", wins),
                 SlotSet("kdr", round(wins / total * 100.0, 3)),
                 FollowupAction(name=message)]
-
